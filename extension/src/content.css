@@ -1,0 +1,668 @@
+/* Douyin Live Danmaku Blocker - In-Page UI & Safe Hiding Styles */
+
+.dy-df-hidden,
+[data-dy-df-blocked="1"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+}
+
+#dy-df-root {
+  --dy-bg: rgba(20, 22, 31, 0.94);
+  --dy-bg-elevated: rgba(31, 34, 48, 0.95);
+  --dy-bg-hover: rgba(45, 49, 68, 0.95);
+  --dy-border: rgba(255, 255, 255, 0.1);
+  --dy-text: #f3f4f6;
+  --dy-text-muted: #9ca3af;
+  --dy-accent: #fe2c55;
+  --dy-accent-hover: #ff476c;
+  --dy-green: #22c55e;
+  --dy-amber: #f59e0b;
+  --dy-blue: #3b82f6;
+  --dy-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+  --dy-radius: 12px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--dy-text);
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2147483640;
+}
+
+#dy-df-root * {
+  box-sizing: border-box;
+}
+
+/* Floating Dock Button */
+.dy-df-dock {
+  position: fixed;
+  right: 18px;
+  bottom: 92px;
+  pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: var(--dy-bg);
+  border: 1px solid var(--dy-border);
+  box-shadow: var(--dy-shadow);
+  backdrop-filter: blur(12px);
+  color: var(--dy-text);
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+}
+
+.dy-df-dock:hover {
+  border-color: rgba(254, 44, 85, 0.6);
+  background: rgba(28, 30, 42, 0.98);
+  transform: translateY(-1px);
+}
+
+.dy-df-dock.is-disabled {
+  opacity: 0.65;
+}
+
+.dy-df-dock-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dy-accent);
+  flex-shrink: 0;
+}
+
+.dy-df-dock.is-disabled .dy-df-dock-icon {
+  color: var(--dy-text-muted);
+}
+
+.dy-df-dock-label {
+  font-weight: 600;
+  font-size: 12.5px;
+  letter-spacing: 0.2px;
+}
+
+.dy-df-dock-badge {
+  background: rgba(254, 44, 85, 0.18);
+  color: #ff6b88;
+  border: 1px solid rgba(254, 44, 85, 0.35);
+  border-radius: 999px;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-weight: 700;
+  min-width: 22px;
+  text-align: center;
+}
+
+/* Side Drawer Panel */
+.dy-df-panel {
+  position: fixed;
+  top: 64px;
+  right: 18px;
+  width: 390px;
+  max-width: calc(100vw - 24px);
+  max-height: calc(100vh - 96px);
+  pointer-events: auto;
+  display: none;
+  flex-direction: column;
+  background: var(--dy-bg);
+  border: 1px solid var(--dy-border);
+  border-radius: var(--dy-radius);
+  box-shadow: var(--dy-shadow);
+  backdrop-filter: blur(18px);
+  overflow: hidden;
+}
+
+.dy-df-panel.is-open {
+  display: flex;
+  animation: dyDfFadeIn 0.16s ease-out;
+}
+
+@keyframes dyDfFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.dy-df-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 15px 11px;
+  border-bottom: 1px solid var(--dy-border);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.dy-df-title-group {
+  min-width: 0;
+  flex: 1;
+}
+
+.dy-df-title {
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dy-df-subtitle {
+  font-size: 11.5px;
+  color: var(--dy-text-muted);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dy-df-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.dy-df-icon-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--dy-text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.dy-df-icon-btn:hover {
+  background: var(--dy-bg-hover);
+  color: var(--dy-text);
+}
+
+/* Switch */
+.dy-df-switch {
+  position: relative;
+  display: inline-block;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.dy-df-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.dy-df-slider {
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  transition: background 0.18s;
+}
+
+.dy-df-slider::before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  top: 3px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.18s;
+}
+
+.dy-df-switch input:checked + .dy-df-slider {
+  background: var(--dy-accent);
+}
+
+.dy-df-switch input:checked + .dy-df-slider::before {
+  transform: translateX(16px);
+}
+
+/* Stats Strip */
+.dy-df-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--dy-border);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.dy-df-stat-item {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 6px 8px;
+  text-align: center;
+}
+
+.dy-df-stat-num {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--dy-text);
+}
+
+.dy-df-stat-num.accent {
+  color: #ff5c7c;
+}
+
+.dy-df-stat-label {
+  font-size: 11px;
+  color: var(--dy-text-muted);
+}
+
+/* Tabs */
+.dy-df-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 6px 10px 0;
+  gap: 4px;
+  border-bottom: 1px solid var(--dy-border);
+}
+
+.dy-df-tab {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--dy-text-muted);
+  padding: 8px 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.dy-df-tab:hover {
+  color: var(--dy-text);
+}
+
+.dy-df-tab.is-active {
+  color: #fff;
+  border-bottom-color: var(--dy-accent);
+}
+
+/* Body */
+.dy-df-body {
+  padding: 13px 14px;
+  overflow-y: auto;
+  flex: 1;
+  min-height: 220px;
+}
+
+.dy-df-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dy-df-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.16);
+  border-radius: 3px;
+}
+
+/* Form Controls */
+.dy-df-add-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.dy-df-input,
+.dy-df-select,
+.dy-df-textarea {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--dy-border);
+  border-radius: 8px;
+  color: var(--dy-text);
+  padding: 7px 10px;
+  font-size: 12.5px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.dy-df-input:focus,
+.dy-df-select:focus,
+.dy-df-textarea:focus {
+  border-color: rgba(254, 44, 85, 0.7);
+}
+
+.dy-df-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.dy-df-select {
+  width: 78px;
+  flex-shrink: 0;
+  background: #232635;
+}
+
+.dy-df-textarea {
+  width: 100%;
+  resize: vertical;
+  min-height: 54px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11.5px;
+}
+
+.dy-df-btn {
+  border: 1px solid var(--dy-border);
+  background: var(--dy-bg-elevated);
+  color: var(--dy-text);
+  border-radius: 8px;
+  padding: 6px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.dy-df-btn:hover {
+  background: var(--dy-bg-hover);
+}
+
+.dy-df-btn-primary {
+  background: var(--dy-accent);
+  border-color: var(--dy-accent);
+  color: #fff;
+}
+
+.dy-df-btn-primary:hover {
+  background: var(--dy-accent-hover);
+  border-color: var(--dy-accent-hover);
+}
+
+.dy-df-btn-sm {
+  padding: 3px 8px;
+  font-size: 11px;
+  border-radius: 6px;
+}
+
+.dy-df-btn-danger {
+  color: #ff6b88;
+  border-color: rgba(254, 44, 85, 0.3);
+  background: rgba(254, 44, 85, 0.1);
+}
+
+.dy-df-btn-danger:hover {
+  background: rgba(254, 44, 85, 0.22);
+}
+
+/* Section & Card */
+.dy-df-section {
+  margin-bottom: 14px;
+}
+
+.dy-df-section-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--dy-text-muted);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.dy-df-card {
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid var(--dy-border);
+  border-radius: 10px;
+  padding: 10px 11px;
+  margin-bottom: 10px;
+}
+
+.dy-df-row-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 5px 0;
+}
+
+.dy-df-row-between + .dy-df-row-between {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.dy-df-hint {
+  font-size: 11.5px;
+  color: var(--dy-text-muted);
+  margin-top: 2px;
+}
+
+/* Rule List */
+.dy-df-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.dy-df-rule-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.dy-df-rule-item.is-off {
+  opacity: 0.5;
+}
+
+.dy-df-rule-main {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dy-df-tag {
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 5px;
+  flex-shrink: 0;
+  background: rgba(59, 130, 246, 0.2);
+  color: #93c5fd;
+}
+
+.dy-df-tag.type-exact {
+  background: rgba(34, 197, 94, 0.18);
+  color: #86efac;
+}
+
+.dy-df-tag.type-regex {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+}
+
+.dy-df-tag.type-user {
+  background: rgba(168, 85, 247, 0.22);
+  color: #d8b4fe;
+}
+
+.dy-df-tag.reason-spam {
+  background: rgba(245, 158, 11, 0.22);
+  color: #fcd34d;
+}
+
+.dy-df-tag.reason-rule {
+  background: rgba(254, 44, 85, 0.22);
+  color: #ff859d;
+}
+
+.dy-df-tag.reason-system {
+  background: rgba(107, 114, 128, 0.28);
+  color: #d1d5db;
+}
+
+.dy-df-rule-text {
+  font-size: 12.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--dy-text);
+}
+
+.dy-df-rule-actions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+}
+
+.dy-df-empty {
+  text-align: center;
+  padding: 20px 12px;
+  color: var(--dy-text-muted);
+  font-size: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 9px;
+}
+
+/* Radar item */
+.dy-df-radar-count {
+  font-size: 11px;
+  font-weight: 700;
+  color: #fcd34d;
+  background: rgba(245, 158, 11, 0.18);
+  padding: 1px 6px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+/* Inline number input */
+.dy-df-num-input {
+  width: 56px;
+  text-align: center;
+  padding: 4px 6px;
+}
+
+/* Log Item */
+.dy-df-log-item {
+  padding: 7px 9px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  font-size: 12px;
+}
+
+.dy-df-log-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  margin-bottom: 3px;
+  font-size: 11px;
+  color: var(--dy-text-muted);
+}
+
+.dy-df-log-text {
+  word-break: break-all;
+  color: var(--dy-text);
+}
+
+/* Hover Quick-Block Pill on Chatroom */
+.dy-df-hover-btn {
+  position: fixed;
+  pointer-events: auto;
+  display: none;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(254, 44, 85, 0.92);
+  color: #fff;
+  border: none;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  z-index: 2147483641;
+}
+
+.dy-df-hover-btn:hover {
+  background: #ff476c;
+}
+
+/* Quick Action Popover */
+.dy-df-popover {
+  position: fixed;
+  pointer-events: auto;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  width: 240px;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgba(20, 22, 31, 0.98);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: var(--dy-shadow);
+  backdrop-filter: blur(16px);
+  z-index: 2147483642;
+}
+
+.dy-df-popover.is-open {
+  display: flex;
+}
+
+.dy-df-popover-preview {
+  font-size: 11.5px;
+  color: var(--dy-text-muted);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 6px 8px;
+  border-radius: 6px;
+  word-break: break-all;
+  max-height: 54px;
+  overflow: hidden;
+}
+
+/* Toast */
+.dy-df-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 36px;
+  transform: translateX(-50%) translateY(10px);
+  background: rgba(20, 22, 31, 0.96);
+  color: #fff;
+  border: 1px solid rgba(254, 44, 85, 0.5);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+  box-shadow: var(--dy-shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 2147483645;
+}
+
+.dy-df-toast.is-show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

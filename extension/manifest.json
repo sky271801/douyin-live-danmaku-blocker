@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "抖音直播弹幕屏蔽助手",
+  "version": "1.3.0",
+  "description": "按直播间/全局屏蔽抖音网页版刷屏弹幕，支持实时高频刷屏雷达、智能重复弹幕折叠、正则/用户屏蔽与公屏一键快捷屏蔽。",
+  "permissions": [
+    "storage"
+  ],
+  "host_permissions": [
+    "https://live.douyin.com/*",
+    "https://www.douyin.com/*"
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "抖音直播弹幕屏蔽助手",
+    "default_popup": "src/popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://live.douyin.com/*",
+        "https://www.douyin.com/*"
+      ],
+      "js": [
+        "src/page-canvas-hook.js"
+      ],
+      "run_at": "document_start",
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "https://live.douyin.com/*",
+        "https://www.douyin.com/*"
+      ],
+      "js": [
+        "src/filter-engine.js",
+        "src/content.js"
+      ],
+      "css": [
+        "src/content.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
